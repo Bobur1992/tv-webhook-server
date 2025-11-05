@@ -1,7 +1,4 @@
 flask
-mysql-connector-python
+pandas
 gspread
-google-auth
-python-dotenv
-requests
-gunicorn
+oauth2client
