@@ -1,0 +1,7 @@
+flask
+mysql-connector-python
+gspread
+google-auth
+python-dotenv
+requests
+gunicorn
