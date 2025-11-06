@@ -5,13 +5,12 @@ import os
 
 app = Flask(__name__)
 
-# Log fayl nomi (signal tarixini yozib borish uchun)
 LOG_FILE = "signals_log.csv"
 
 
 @app.route('/')
 def home():
-    return "<h3>✅ TradingView Webhook Server ishlayapti!</h3>"
+    return "<h2>✅ TradingView Webhook Server ishlayapti!</h2>"
 
 
 @app.route('/webhook', methods=['POST'])
@@ -19,13 +18,12 @@ def webhook():
     try:
         data = request.get_json(force=True)
 
-        # Webhook orqali kelgan ma’lumot
         symbol = data.get("symbol", "Unknown")
         action = data.get("action", "None")
         price = data.get("price", "N/A")
         time_utc = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Logni CSV faylga yozish
+        # CSV log
         df = pd.DataFrame([{
             "time_utc": time_utc,
             "symbol": symbol,
@@ -38,9 +36,9 @@ def webhook():
         else:
             df.to_csv(LOG_FILE, mode='a', header=False, index=False)
 
-        print(f"✅ Signal qabul qilindi: {symbol} - {action} @ {price}")
+        print(f"✅ Signal: {symbol} - {action} @ {price}")
 
-        return jsonify({"status": "success", "message": "Signal qabul qilindi"}), 200
+        return jsonify({"status": "ok", "message": "Signal qabul qilindi"}), 200
 
     except Exception as e:
         print(f"❌ Xatolik: {e}")
