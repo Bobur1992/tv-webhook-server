@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
+@app.route('/')
+def home():
+    return '✅ TradingView Webhook Server ishlayapti!'
 
 @app.route('/')
 def home():
